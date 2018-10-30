@@ -1,0 +1,17 @@
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\Bills.Services.dll.config
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\Bills.Services.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\Bills.Services.pdb
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\Cellar.Data.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\EntityFramework.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\Cellar.Data.pdb
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\Cellar.Data.dll.config
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\EntityFramework.xml
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\es\EntityFramework.resources.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\bin\Release\es\EntityFramework.SqlServer.resources.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\obj\Release\Bills.Services.csprojAssemblyReference.cache
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\obj\Release\Bills.Services.csproj.CoreCompileInputs.cache
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\obj\Release\Bills.Services.csproj.CopyComplete
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\obj\Release\Bills.Services.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.Services\obj\Release\Bills.Services.pdb

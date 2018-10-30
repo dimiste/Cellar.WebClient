@@ -1,0 +1,14 @@
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\bin\Debug\Cellar.Data.dll.config
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\bin\Debug\Cellar.Data.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\bin\Debug\Cellar.Data.pdb
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\bin\Debug\EntityFramework.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\bin\Debug\EntityFramework.xml
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\bin\Debug\es\EntityFramework.resources.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\obj\Debug\Cellar.Data.csprojAssemblyReference.cache
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\obj\Debug\Cellar.Data.csproj.CoreCompileInputs.cache
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\obj\Debug\Cellar.Data.csproj.CopyComplete
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\obj\Debug\Cellar.Data.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Data\obj\Debug\Cellar.Data.pdb

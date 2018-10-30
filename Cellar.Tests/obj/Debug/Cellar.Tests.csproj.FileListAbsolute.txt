@@ -30,3 +30,7 @@ C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\obj\Debug\Cellar.
 C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\obj\Debug\Cellar.Tests.csproj.CopyComplete
 C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\obj\Debug\Cellar.Tests.dll
 C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\obj\Debug\Cellar.Tests.pdb
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\bin\Debug\Cellar.Tests.dll.config
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\bin\Debug\es\EntityFramework.SqlServer.resources.dll

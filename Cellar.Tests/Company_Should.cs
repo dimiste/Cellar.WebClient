@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cellar.Tests
 {
-    class Company_Should
+    public class Company_Should
     {
     }
 }

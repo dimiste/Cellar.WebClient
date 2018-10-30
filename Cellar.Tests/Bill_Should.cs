@@ -19,6 +19,7 @@ namespace Cellar.Tests
             // Arrange
             Bill bill = new Bill();
             var company = new Mock<Company>();
+            var date = new DateTime(2018, 03, 28);
 
             // Act
             bill.Id = 1;
@@ -30,6 +31,7 @@ namespace Cellar.Tests
             bill.IdUser = "IdUser";
             bill.BillScanned = "scanned";
             bill.Company = company.Object;
+            bill.Date = date;
 
             var idExpected = 1;
             var exentoExpected = 5;
@@ -58,6 +60,7 @@ namespace Cellar.Tests
             Assert.AreEqual(IVA10Expected, bill.IVA10);
             Assert.AreEqual(IVA21Expected, bill.IVA21);
             Assert.AreEqual(totalBillExpected, bill.TotalBill);
+            Assert.AreEqual(date, bill.Date);
         }
     }
 

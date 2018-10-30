@@ -63,10 +63,6 @@ namespace Cellar.Tests
             Assert.AreEqual(date, bill.Date);
         }
 
-        public void Hola()
-        {
-
-        }
     }
 
 }

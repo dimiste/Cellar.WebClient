@@ -16,17 +16,18 @@ namespace Cellar.Tests
         {
             // Arrange
             var company = new Company();
+            var id = 1;
             var name = "Name";
             var number = "123";
             var commercial = "Commercial";
 
             // Act
-            company.Id = 1;
+            company.Id = id;
             company.Name = name;
             company.Number = number;
             company.Commercial = commercial;
 
-            var expectedId = 1;
+            var expectedId = id;
             var expectedName = name;
             var expectedNumber = number;
             var expectedCommercial = commercial;

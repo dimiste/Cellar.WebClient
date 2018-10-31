@@ -68,6 +68,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BillService\GetBillsByIdUser_Should.cs" />
+    <Compile Include="Mocks\QueryableDbSetMock.cs" />
     <Compile Include="ModelsTests\Bill_Should.cs" />
     <Compile Include="ModelsTests\Company_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

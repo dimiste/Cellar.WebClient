@@ -64,8 +64,24 @@
 
                             <asp:ListView ID="ListView1" runat="server" DataKeyNames="Id"
                                 SelectMethod="ListView1_GetData"
-                                ItemType="Cellar.Data.Models.Company">
+                                UpdateMethod="ListView1_UpdateItem"
+                                ItemType="Cellar.Data.Models.Company" >
                                 <EditItemTemplate>
+                                    <tr >
+                                        <td>
+                                            <asp:Button ID="UpdateButton" runat="server" CommandName="Update" Text="Actualizar" class="btn btn-primary" />
+                                            <asp:Button ID="CancelButton" runat="server" CommandName="Cancel" Text="Cancelar" class="btn btn-primary"/>
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="NameTextBox" runat="server" Text='<%# Bind("Name") %>' />
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="NumberTextBox" runat="server" Text='<%# Bind("Number") %>' />
+                                        </td>
+                                        <td>
+                                            <asp:TextBox ID="CommercialTextBox" runat="server" Text='<%# Bind("Commercial") %>' />
+                                        </td>
+                                    </tr>
                                 </EditItemTemplate>
                                 <EmptyDataTemplate>
                                     <tr>
@@ -77,29 +93,31 @@
                                 </InsertItemTemplate>
                                 <ItemTemplate>
                                     <tbody id="myTable">
-                                        <tr>
+                                        <tr class="success">
                                             <td>
-                                                <%--<asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Eliminar" class="btn btn-primary" />
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Editar" class="btn btn-primary" />--%>
-                                                <asp:CheckBox runat="server" ID="CheckBox" />
+                                                <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Editar" class="btn btn-primary" />
                                             </td>
                                             <td>
                                                 <asp:Label ID="Name" runat="server" Text="<%# Item.Name %>"></asp:Label>
                                             </td>
 
                                             <td>
-                                                <asp:Label ID="Id" runat="server" Text='<%# Item.Id %> ' Visible="false" />
+                                                <asp:Label ID="Number" runat="server" Text='<%# Item.Number %> ' />
+                                            </td>
+                                            <td>
+                                                <asp:Label ID="Commercial" runat="server" Text='<%# Item.Commercial %> '  />
                                             </td>
                                         </tr>
                                     </tbody>
                                 </ItemTemplate>
                                 <LayoutTemplate>
                                     <tr runat="server" class="success">
-                                        <td runat="server" style="width: 200px">
-                                            <asp:Button ID="DeleteButton" runat="server" OnClick="ButonEliminar_Click" Text="Eliminar" class="btn btn-primary" />
+                                        <td  >
+                                            <%--<asp:Button ID="DeleteButton" runat="server" OnClick="ButonEliminar_Click" Text="Eliminar" class="btn btn-primary" />--%>
                                         </td>
                                         <td>Name</td>
-
+                                        <td>Teléfono</td>
+                                        <td>Comercial</td>
                                     </tr>
                                     <tr id="itemPlaceholder" runat="server" visible="false">
                                     </tr>

@@ -1,18 +1,9 @@
 ﻿using Bills.MVP.ListaFacturas;
-using Bills.Services;
-using Cellar.Data;
 using Cellar.Data.Models;
-using Microsoft.AspNet.Identity;
+
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
+
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
@@ -23,7 +14,7 @@ namespace Cellar.WebClient
     {
 
         public event EventHandler<GetContextEventArgs> OnListView1_GetData;
-        public event EventHandler<GetListViewEventArgs> OnButonEliminar_Click;
+        public event EventHandler OnButonEliminar_Click;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -51,7 +42,7 @@ namespace Cellar.WebClient
         protected void ButonEliminar_Click(object sender, EventArgs e)
         {
 
-            this.OnButonEliminar_Click?.Invoke(this, new GetListViewEventArgs(this.ListView1));
+            this.OnButonEliminar_Click?.Invoke(this, null);
 
             this.Context.Response.Redirect("ListaFacturas.aspx");
         }

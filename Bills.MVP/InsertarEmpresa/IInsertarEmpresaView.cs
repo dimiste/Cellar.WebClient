@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bills.MVP.ListaFacturas;
+using System;
+
 using WebFormsMvp;
 
 namespace Bills.MVP.InsertarEmpresa
 {
     public interface IInsertarEmpresaView : IView
     {
-        event EventHandler<GetCompanyEventArgs> OnInsertCompany;
+        event EventHandler<GetContextEventArgs> OnInsertCompany;
+        event EventHandler<GetContextEventArgs> OnServerValidation;
     }
 }

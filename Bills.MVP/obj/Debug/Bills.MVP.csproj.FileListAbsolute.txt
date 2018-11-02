@@ -23,3 +23,7 @@ C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.MVP\obj\Debug\Bills.MVP.
 C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.MVP\obj\Debug\Bills.MVP.csproj.CopyComplete
 C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.MVP\obj\Debug\Bills.MVP.dll
 C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.MVP\obj\Debug\Bills.MVP.pdb
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.MVP\bin\Debug\Microsoft.ApplicationInsights.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.MVP\bin\Debug\System.Diagnostics.DiagnosticSource.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.MVP\bin\Debug\Microsoft.ApplicationInsights.xml
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Bills.MVP\bin\Debug\System.Diagnostics.DiagnosticSource.xml

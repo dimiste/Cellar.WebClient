@@ -15,5 +15,7 @@ namespace Cellar.Data.Models
         public string Number { get; set; }
 
         public string Commercial { get; set; }
+
+        public string IdUser { get; set; }
     }
 }

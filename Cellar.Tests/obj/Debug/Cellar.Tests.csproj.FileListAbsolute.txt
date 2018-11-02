@@ -34,3 +34,5 @@ C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\bin\Debug\Cellar.
 C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\bin\Debug\es\EntityFramework.SqlServer.resources.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Josepidimi\source\repos\Cellar.WebClient\Cellar.Tests\bin\Debug\Microsoft.AspNet.Identity.Core.xml

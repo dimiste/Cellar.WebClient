@@ -81,6 +81,7 @@ namespace Cellar.WebClient.App_Start
 
             kernel.Bind<IBillService>().To<BillService>();
             kernel.Bind<ICompanyService>().To<CompanyService>();
+            kernel.Bind<ISumBillsService>().To<SumBillsService>();
         }
     }
 }

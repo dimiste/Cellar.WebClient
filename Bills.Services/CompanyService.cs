@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace Bills.Services
 {
@@ -42,6 +44,44 @@ namespace Bills.Services
         public void RemoveCompany(Company company)
         {
             billsSystemContext.Companies.Remove(company);
+        }
+
+        public IQueryable<Company> GetCompanyByIdUser(string idUser)
+        {
+            return this.billsSystemContext
+                .Companies
+                .Where(c => c.IdUser == idUser);
+        }
+
+        public void CreateCompanyForSpecificUser(Control control, string idUser)
+        {
+            var companyBase = (TextBox)control.FindControl("company");
+            Company company = new Company();
+            company.Name = companyBase.Text;
+            company.IdUser = idUser;
+            this.billsSystemContext.Companies.Add(company);
+            this.billsSystemContext.SaveChanges();
+        }
+
+        public void UpdateByIdCompany(Page page, int idToUpdateItem)
+        {
+            Company item = null;
+
+            // Cargar el elemento aquí, por ejemplo item = MyDataLayer.Find(id);
+            item = this.FindCompanyById(idToUpdateItem);
+
+            if (item == null)
+            {
+                // No se encontró el elemento
+                page.ModelState.AddModelError("", String.Format("No se encontró el elemento con id. {0}", idToUpdateItem));
+                return;
+            }
+            page.TryUpdateModel(item);
+            if (page.ModelState.IsValid)
+            {
+                // Guarde los cambios aquí, por ejemplo MyDataLayer.SaveChanges();
+                this.billsSystemContext.SaveChanges();
+            }
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Cellar.Tests
         public void ReturnValuesPropertiesCorrect_WhenSetPropertiesAreCorrect()
         {
             // Arrange
-            Bill bill = new Bill();
+            IBill bill = new Bill();
             var company = new Mock<Company>();
             var date = new DateTime(2018, 03, 28);
             var id = 1;

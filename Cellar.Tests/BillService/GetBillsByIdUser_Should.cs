@@ -1,4 +1,5 @@
-﻿using Cellar.Data;
+﻿using Bills.Services;
+using Cellar.Data;
 using Cellar.Data.Models;
 using Cellar.Tests.Mocks;
 using Moq;
@@ -20,6 +21,7 @@ namespace Cellar.Tests.BillService
         {
             // Arrange
             var contextMock = new Mock<IBillsSystemContext>();
+            var companyServiceMock = new Mock<ICompanyService>();
 
             var idUser = "23";
             IQueryable<Bill> bills = new List<Bill>() { new Bill() { Id = 1, IdUser = idUser }, new Bill() { Id = 2, IdUser = idUser }, new Bill() { Id = 3, IdUser = "4"} }.AsQueryable();
@@ -31,7 +33,7 @@ namespace Cellar.Tests.BillService
 
             contextMock.Setup(c => c.Bills).Returns(billSetMock);
 
-            Bills.Services.BillService billService = new Bills.Services.BillService(contextMock.Object);
+            Bills.Services.BillService billService = new Bills.Services.BillService(contextMock.Object, companyServiceMock.Object);
 
             // Act
             var result = billService.GetBillsByIdUser(idUser);

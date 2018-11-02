@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using Cellar.Data.Models;
 
 namespace Bills.Services
@@ -16,6 +19,10 @@ namespace Bills.Services
 
         int GetLastOrDefaultIdBill();
 
-        IList<SumBills> CalculatorMounths(string idUser);
+        IList<SumBills> CalculatorMounths(ISumBillsService sumBillsService, string idUser);
+
+        void DeleteBillByCheckedBox(ListView listView);
+
+        void CreateBillFromForm(HttpContext context, Control control);
     }   
 }

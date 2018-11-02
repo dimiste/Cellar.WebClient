@@ -1,13 +1,17 @@
 ﻿using Bills.MVP.Commun;
+using Bills.MVP.ListaFacturas;
 using Bills.Services;
 using Cellar.Data;
-using System;
-using System.Collections.Generic;
+
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.WebControls;
-using WebFormsMvp;
+
+using Microsoft.AspNet.Identity;
+using System;
+using System.Web.ModelBinding;
+using System.Web.UI;
+using Cellar.Data.Models;
+using Bills.MVP.CustomEventArgs;
+using WebFormsMvp.Web;
 
 namespace Bills.MVP.ListaEmpresas
 {
@@ -17,34 +21,22 @@ namespace Bills.MVP.ListaEmpresas
             : base(view, billsSystemContext, billService, companyService)
         {
             this.View.OnListView1_GetData += View_OnListView1_GetData;
-            this.View.OnButonEliminar_Click += View_OnButonEliminar_Click;
+            this.View.OnListView1_UpdateItem += View_OnListView1_UpdateItem;
         }
 
-        private void View_OnButonEliminar_Click(object sender, ListaFacturas.GetListViewEventArgs e)
+        private void View_OnListView1_UpdateItem(object sender, GetIdToUpdateItemEventArgs e)
         {
-            var result = e.ListView.Items;
+            Page page = (Page)sender;
+            int idToUpdateItem = e.IdToUpdateItem;
 
-            foreach (var item in result)
-            {
-                CheckBox chkUser = item.FindControl("CheckBox") as CheckBox;
-
-                if (chkUser != null & chkUser.Checked)
-                {
-                    //int.TryParse(item.FindControl("Id").ToString(), out int idChecked);
-                    Label idChecked = (Label)item.FindControl("Id");
-                    var id = int.Parse(idChecked.Text);
-
-                    var company = this.companyService.FindCompanyById(id);
-
-                    this.companyService.RemoveCompany(company);
-                    this.billsSystemContext.SaveChanges();
-                }
-            }
+            this.companyService.UpdateByIdCompany(page, idToUpdateItem);
         }
 
-        private void View_OnListView1_GetData(object sender, EventArgs e)
+        private void View_OnListView1_GetData(object sender, GetContextEventArgs e)
         {
-            this.View.Model.Companies = this.companyService.GetAllCompanies();
+            var idUser = e.Context.User.Identity.GetUserId();
+            //this.View.Model.Companies = this.billsSystemContext.Companies.Where(c => c.IdUser == idUser);
+            this.View.Model.Companies = this.companyService.GetCompanyByIdUser(idUser);
         }
     }
 }

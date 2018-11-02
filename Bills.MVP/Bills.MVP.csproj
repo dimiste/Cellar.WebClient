@@ -37,14 +37,28 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.8.1\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.2\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Entity.Design" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,18 +71,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commun\PresenterCommun.cs" />
-    <Compile Include="InsertarEmpresa\GetCompanyEventArgs.cs" />
+    <Compile Include="CustomEventArgs\GetIdToUpdateItemEventArgs.cs" />
     <Compile Include="InsertarEmpresa\InsertarEmpresaPresenter.cs" />
     <Compile Include="InsertarEmpresa\IInsertarEmpresaView.cs" />
-    <Compile Include="InsertarFactura\GetContextAndControlEventArgs.cs" />
-    <Compile Include="InsertarFactura\GetControlEventArgs.cs" />
     <Compile Include="InsertarFactura\IInsertarFacturaView.cs" />
     <Compile Include="InsertarFactura\InsertarFacturaPresenter.cs" />
     <Compile Include="ListaEmpresas\IListaEmpresasView.cs" />
     <Compile Include="ListaEmpresas\ListaEmpresasPresenter.cs" />
     <Compile Include="ListaEmpresas\ListaEmpresasViewModel.cs" />
-    <Compile Include="ListaFacturas\GetContextEventArgs.cs" />
-    <Compile Include="ListaFacturas\GetListViewEventArgs.cs" />
+    <Compile Include="CustomEventArgs\GetContextEventArgs.cs" />
     <Compile Include="ListaFacturas\IListaFacturasView.cs" />
     <Compile Include="ListaFacturas\ListaFacturasPresenter.cs" />
     <Compile Include="ListaFacturas\ListaFacturasViewModel.cs" />

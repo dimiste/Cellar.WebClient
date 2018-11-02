@@ -92,7 +92,7 @@
 
                         
 
-                        <li class="side-nav-item">
+                        <%--<li class="side-nav-item">
                             <a href="javascript: void(0);" class="side-nav-link">
                                 <i class="dripicons-location"></i>
                                 <span>Maps </span>
@@ -106,7 +106,7 @@
                                     <a href="maps-vector.html">Vector Maps</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li>--%>
 
                        
 

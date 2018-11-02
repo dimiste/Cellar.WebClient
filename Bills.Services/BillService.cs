@@ -1,22 +1,29 @@
 ﻿using Cellar.Data;
 using Cellar.Data.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bills.Services
 {
     public class BillService : IBillService
     {
         private readonly IBillsSystemContext billsSystemContext;
+        private readonly ICompanyService companyService;
 
-        public BillService(IBillsSystemContext billsSystemContext)
+        public BillService(IBillsSystemContext billsSystemContext, ICompanyService companyService)
         {
             this.billsSystemContext = billsSystemContext;
+            this.companyService = companyService;
         }
 
         public IQueryable<Bill> GetBillsByIdUser(string idUser)
@@ -48,33 +55,130 @@ namespace Bills.Services
             return this.GetAllBills().LastOrDefault().Id;
         }
 
-        public IList<SumBills> CalculatorMounths(string idUser)
+        public IList<SumBills> CalculatorMounths(ISumBillsService sumBillsService, string idUser)
         {
-            var firstBills = this.billsSystemContext.Bills.Where(b => b.IdUser == idUser);
-            var mounths = firstBills.ToList().Select(b => b.Month).Distinct();
+            var firstBills = this.GetBillsByIdUser(idUser);
+            var mounths = this.DistinctsMounths(firstBills);
 
-            IList<SumBills> sumBillsTotals = new List<SumBills>();
-
-            foreach (var item in mounths)
-            {
-                SumBills sumBills = new SumBills();
-                sumBills.Mes = item;
-                var bills = firstBills.Where(b => b.Month == item).ToList();
-                sumBills.Exento = bills.Sum(b => b.Exento);
-                sumBills.BaseSuperReducido = bills.Sum(b => b.Base4);
-                sumBills.BaseReducido = bills.Sum(b => b.Base10);
-                sumBills.BaseNormal = bills.Sum(b => b.Base21);
-                sumBills.IVASuperReducido = bills.Sum(b => b.IVA4);
-                sumBills.IVAReducido = bills.Sum(b => b.IVA10);
-                sumBills.IVANormal = bills.Sum(b => b.IVA21);
-                sumBills.BaseTotal = bills.Sum(b => b.Base4 + b.Base10 + b.Base21);
-                sumBills.IVATotal = bills.Sum(b => b.IVA4 + b.IVA10 + b.IVA21);
-                sumBills.ImporteTotal = sumBills.Exento + sumBills.BaseTotal + sumBills.IVATotal;
-
-                sumBillsTotals.Add(sumBills);
-            }
+            var sumBillsTotals = sumBillsService.CalculatorMounths(firstBills, mounths);
 
             return sumBillsTotals;
+        }
+
+        public IEnumerable<string> DistinctsMounths(IQueryable<Bill> bills)
+        {
+            return bills.ToList().Select(b => b.Month).Distinct();
+        }
+        
+        public void DeleteBillByCheckedBox(ListView listView)
+        {
+            var listViewItems = listView.Items;
+
+            foreach (var item in listViewItems)
+            {
+                CheckBox chkUser = item.FindControl("CheckBox") as CheckBox;
+
+                if (chkUser != null & chkUser.Checked)
+                {
+                    //int.TryParse(item.FindControl("Id").ToString(), out int idChecked);
+                    Label idChecked = (Label)item.FindControl("Id");
+                    var id = int.Parse(idChecked.Text);
+
+                    var bill = this.FindBillById(id);
+
+                    this.RemoveBill(bill);
+                    
+                }
+            }
+
+            this.billsSystemContext.SaveChanges();
+        }
+
+        public void CreateBillFromForm(HttpContext context, Control control)
+        {
+            int lastIdBill = 0;
+
+            Bill bill = new Bill();
+            var month = (HtmlSelect)control.FindControl("month");
+            var year = DateTime.Now.Year.ToString();
+            bill.Month = year + month.Value;
+
+            var idUser = context.User.Identity.GetUserId();
+
+            bill.IdUser = idUser;
+
+            if (this.GetAllBills().Count > 0)
+            {
+                lastIdBill = this.GetLastOrDefaultIdBill();
+            }
+
+            var companyBase = (HtmlInputText)control.FindControl("company");
+            var company = this.companyService.GetCompanyByName(companyBase.Value);
+            bill.Company = company;
+
+            var exentoBase = (HtmlInputText)control.FindControl("exento");
+            if (string.IsNullOrEmpty(exentoBase.Value))
+            {
+                bill.Exento = 0;
+            }
+            else
+            {
+                bill.Exento = double.Parse(exentoBase.Value);
+            }
+
+            var base4Base = (HtmlInputText)control.FindControl("base4");
+            if (string.IsNullOrEmpty(base4Base.Value))
+            {
+                bill.Base4 = 0;
+            }
+            else
+            {
+                bill.Base4 = double.Parse(base4Base.Value);
+            }
+
+            var base10Base = (HtmlInputText)control.FindControl("base10");
+            if (string.IsNullOrEmpty(base10Base.Value))
+            {
+                bill.Base10 = 0;
+            }
+            else
+            {
+                bill.Base10 = double.Parse(base10Base.Value);
+            }
+
+            var base21Base = (HtmlInputText)control.FindControl("base21");
+            if (string.IsNullOrEmpty(base21Base.Value))
+            {
+                bill.Base21 = 0;
+            }
+            else
+            {
+                bill.Base21 = double.Parse(base21Base.Value);
+            }
+
+            var billScanned = (HtmlInputFile)control.FindControl("bill");
+            var billScannedPostedFile = billScanned.PostedFile;
+
+
+            // también se podría haber subido el archivo con el controlador "FileUpload" de asp.net. Para verificar si existe archvo sería: "FileUpload.HasFile"
+            if (billScannedPostedFile.ContentLength > 0)
+            {
+                string path = "../img/" + (lastIdBill + 1).ToString() + Path.GetExtension(billScannedPostedFile.FileName);
+                billScannedPostedFile.SaveAs(context.Server.MapPath(path));
+                bill.BillScanned = path;
+            }
+            else
+            {
+                bill.BillScanned = "../img/FacturaNoEscaneada.pdf";
+            }
+
+
+
+            var dateBase = (HtmlInputGenericControl)control.FindControl("date");
+            bill.Date = DateTime.Parse(dateBase.Value);
+
+            this.billsSystemContext.Bills.Add(bill);
+            this.billsSystemContext.SaveChanges();
         }
     }
 }

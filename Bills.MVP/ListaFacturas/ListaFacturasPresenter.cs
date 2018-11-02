@@ -1,14 +1,15 @@
 ﻿using Bills.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebFormsMvp;
-using Microsoft.AspNet.Identity;
-using System.Web.UI.WebControls;
 using Cellar.Data;
 using Bills.MVP.Commun;
+
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+using Microsoft.AspNet.Identity;
+
+using WebFormsMvp.Web;
+
 
 namespace Bills.MVP.ListaFacturas
 {
@@ -21,26 +22,13 @@ namespace Bills.MVP.ListaFacturas
             this.View.OnButonEliminar_Click += View_OnButonEliminar_Click;
         }
 
-        private void View_OnButonEliminar_Click(object sender, GetListViewEventArgs e)
+        private void View_OnButonEliminar_Click(object sender, EventArgs e)
         {
-            var result = e.ListView.Items;
+            var sen = sender as MvpPage;
+            var control = sen.Master.FindControl("ContentPlaceHolder1") as Control;
+            var listView = (ListView)control.FindControl("ListView1");
 
-            foreach (var item in result)
-            {
-                CheckBox chkUser = item.FindControl("CheckBox") as CheckBox;
-
-                if (chkUser != null & chkUser.Checked)
-                {
-                    //int.TryParse(item.FindControl("Id").ToString(), out int idChecked);
-                    Label idChecked = (Label)item.FindControl("Id");
-                    var id = int.Parse(idChecked.Text);
-
-                    var bill = this.billService.FindBillById(id);
-
-                    this.billService.RemoveBill(bill);
-                    this.billsSystemContext.SaveChanges();
-                }
-            }
+            this.billService.DeleteBillByCheckedBox(listView);
         }
 
         private void View_OnListView1_GetData(object sender, GetContextEventArgs e)

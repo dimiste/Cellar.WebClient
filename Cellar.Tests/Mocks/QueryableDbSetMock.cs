@@ -10,12 +10,12 @@ namespace Cellar.Tests.Mocks
 {
     public class QueryableDbSetMock
     {
-        public static IDbSet<T> GetQueryableMockDbSet<T>(IQueryable<T> sourceList) where T : class
+        public static Mock<IDbSet<T>> GetQueryableMockDbSet<T>(IList<T> sourceList) where T : class
         {
             return GetQueryableMockDbSetFromArray(sourceList.ToArray());
         }
 
-        public static IDbSet<T> GetQueryableMockDbSetFromArray<T>(params T[] sourceList) where T : class
+        public static Mock<IDbSet<T>> GetQueryableMockDbSetFromArray<T>(IList<T> sourceList) where T : class
         {
             var queryable = sourceList.AsQueryable();
 
@@ -25,7 +25,7 @@ namespace Cellar.Tests.Mocks
             dbSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
             dbSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(queryable.GetEnumerator());
 
-            return dbSet.Object;
+            return dbSet;
         }
     }
 }

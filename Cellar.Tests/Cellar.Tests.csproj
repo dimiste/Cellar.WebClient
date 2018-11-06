@@ -68,7 +68,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BillService\FindBillById_Should.cs" />
+    <Compile Include="BillService\GetAllBills_Should.cs" />
     <Compile Include="BillService\GetBillsByIdUser_Should.cs" />
+    <Compile Include="BillService\RemoveBill_Should.cs" />
+    <Compile Include="CompanyService\GetAllCompanies_Should.cs" />
+    <Compile Include="CompanyService\GetCompanyByName_Should.cs" />
+    <Compile Include="Mocks\MockedBase.cs" />
     <Compile Include="Mocks\QueryableDbSetMock.cs" />
     <Compile Include="ModelsTests\Bill_Should.cs" />
     <Compile Include="ModelsTests\Company_Should.cs" />

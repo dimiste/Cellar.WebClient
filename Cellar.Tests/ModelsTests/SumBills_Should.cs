@@ -55,7 +55,7 @@ namespace Cellar.Tests
 
             Assert.AreEqual(expectedMes, sumBills.Mes);
             Assert.AreEqual(expectedExento, sumBills.Exento);
-            Assert.AreEqual(expectedSuperReducido, baseSuperReducido);
+            Assert.AreEqual(expectedSuperReducido, sumBills.BaseSuperReducido);
             Assert.AreEqual(expectedReducido, sumBills.BaseReducido);
             Assert.AreEqual(expectedNormal, sumBills.BaseNormal);
             Assert.AreEqual(expectedIvaSuperReducido, sumBills.IVASuperReducido);

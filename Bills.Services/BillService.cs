@@ -35,9 +35,9 @@ namespace Bills.Services
 
         public Bill FindBillById(int id)
         {
-            var bills = billsSystemContext.Bills.Find(id);
+            var bill = billsSystemContext.Bills.Find(id);
 
-            return bills;
+            return bill;
         }
 
         public void RemoveBill(Bill bill)

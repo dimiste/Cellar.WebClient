@@ -14,24 +14,24 @@ using System.Threading.Tasks;
 namespace Cellar.Tests.BillService
 {
     [TestFixture]
-    public class GetBillsByIdUser_Should
+    public class GetBillsByIdUser_Should : MockedBase
     {
         [Test]
         public void ReturnBills_WhenIdUserIsValid()
         {
             // Arrange
-            var contextMock = new Mock<IBillsSystemContext>();
-            var companyServiceMock = new Mock<ICompanyService>();
+            var contextMock = this.ContextMock;
+            var companyServiceMock = this.CompanyServiceMocked;
 
-            var idUser = "23";
-            IQueryable<Bill> bills = new List<Bill>() { new Bill() { Id = 1, IdUser = idUser }, new Bill() { Id = 2, IdUser = idUser }, new Bill() { Id = 3, IdUser = "4"} }.AsQueryable();
+            var idUser = "idUser02";
+            var bills = this.Bills;
 
             var billSetMock = QueryableDbSetMock.GetQueryableMockDbSet(bills);
 
             var expectedResult = bills.Where(b => b.IdUser == idUser);
             
 
-            contextMock.Setup(c => c.Bills).Returns(billSetMock);
+            contextMock.Setup(c => c.Bills).Returns(billSetMock.Object);
 
             Bills.Services.BillService billService = new Bills.Services.BillService(contextMock.Object, companyServiceMock.Object);
 
@@ -39,8 +39,64 @@ namespace Cellar.Tests.BillService
             var result = billService.GetBillsByIdUser(idUser);
 
             // Assert
+            contextMock.Verify(b => b.Bills, Times.Once);
+            CollectionAssert.IsNotEmpty(expectedResult);
+            CollectionAssert.IsNotEmpty(result);
             CollectionAssert.AreEquivalent(expectedResult, result);
+        }
 
+        [Test]
+        public void ReturnDifferentBills_WhenIdUserIsNotValid()
+        {
+            // Arrange
+            var contextMock = this.ContextMock;
+            var companyServiceMock = this.CompanyServiceMocked;
+
+            var idUser = "23";
+            var bills = this.Bills;
+
+            var billSetMock = QueryableDbSetMock.GetQueryableMockDbSet(bills);
+
+            var expectedResult = bills.Where(b => b.IdUser == "idUser03");
+
+
+            contextMock.Setup(c => c.Bills).Returns(billSetMock.Object);
+
+            Bills.Services.BillService billService = new Bills.Services.BillService(contextMock.Object, companyServiceMock.Object);
+
+            // Act
+            var result = billService.GetBillsByIdUser(idUser);
+
+            // Assert
+            contextMock.Verify(b => b.Bills, Times.Once);
+            CollectionAssert.IsNotEmpty(expectedResult);
+            CollectionAssert.IsEmpty(result);
+            CollectionAssert.AreNotEquivalent(expectedResult, result);
+
+        }
+
+        [Test]
+        public void ReturnEmpty_WhenIdUserIsNotValid()
+        {
+            // Arrange
+            var contextMock = this.ContextMock;
+            var companyServiceMock = this.CompanyServiceMocked;
+
+            var idUser = "23";
+            var bills = this.Bills;
+
+            var billSetMock = QueryableDbSetMock.GetQueryableMockDbSet(bills);
+
+            contextMock.Setup(c => c.Bills).Returns(billSetMock.Object);
+
+            Bills.Services.BillService billService = new Bills.Services.BillService(contextMock.Object, companyServiceMock.Object);
+
+            // Act
+            var result = billService.GetBillsByIdUser(idUser);
+
+            // Assert
+            contextMock.Verify(b => b.Bills, Times.Once);
+            Assert.IsEmpty(result);
         }
     }
 }

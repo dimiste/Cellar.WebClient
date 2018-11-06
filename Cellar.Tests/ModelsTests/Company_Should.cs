@@ -20,23 +20,27 @@ namespace Cellar.Tests
             var name = "Name";
             var number = "123";
             var commercial = "Commercial";
+            var idUser = "idUser";
 
             // Act
             company.Id = id;
             company.Name = name;
             company.Number = number;
             company.Commercial = commercial;
+            company.IdUser = idUser;
 
             var expectedId = id;
             var expectedName = name;
             var expectedNumber = number;
             var expectedCommercial = commercial;
+            var expectedIdUser = idUser;
 
             // Assert
             Assert.AreEqual(expectedId, company.Id);
             Assert.AreEqual(expectedName, company.Name);
             Assert.AreEqual(expectedNumber, company.Number);
             Assert.AreEqual(expectedCommercial, company.Commercial);
+            Assert.AreEqual(expectedIdUser, company.IdUser);
         }
     }
 }

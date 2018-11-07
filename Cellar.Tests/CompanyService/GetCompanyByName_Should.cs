@@ -32,7 +32,5 @@ namespace Cellar.Tests.CompanyService
             Assert.AreSame(expectedResult, result);
         }
 
-        
-
     }
 }

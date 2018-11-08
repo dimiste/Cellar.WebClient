@@ -1,6 +1,6 @@
 # Document management application
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+[![Build status](https://ci.appveyor.com/api/projects/status/n0xyh669b8f6sqip?svg=true)](https://ci.appveyor.com/project/dimiste/cellar-webclient)
 
 Web app create with ASP.NET Web Forms. 
 

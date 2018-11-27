@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 namespace Cellar.Tests.BillService
 {
     [TestFixture]
-    public class FindBillById_Should : MockedBase
+    public class FindBillById_Should : MockedBase<Bill>
     {
 
         [Test]
         public void ReturnSpecificBill_WhenIdIsValid()
         {
             // Arrange
-            var contextMock = this.ContextMock;
+            var contextMock = this.Context;
             var companyServiceMock = this.CompanyServiceMocked;
 
             var expectedId = 2;
@@ -28,17 +28,17 @@ namespace Cellar.Tests.BillService
 
             var billSetMock = QueryableDbSetMock.GetQueryableMockDbSet(bills);
 
-            contextMock.Setup(c => c.Bills).Returns(billSetMock.Object);
+            contextMock.Setup(c => c.DbSet).Returns(billSetMock.Object);
 
-            Bills.Services.BillService billService = new Bills.Services.BillService(contextMock.Object, companyServiceMock.Object);
+            Bills.Services.BillService billService = new Bills.Services.BillService(companyServiceMock.Object, contextMock.Object);
 
-            contextMock.Setup(b => b.Bills.Find(It.IsAny<object[]>())).Returns<object[]>(ids => billSetMock.Object.Where(d => d.Id == (int)ids[0]).First());
+            contextMock.Setup(b => b.DbSet.Find(It.IsAny<object[]>())).Returns<object[]>(ids => billSetMock.Object.Where(d => d.Id == (int)ids[0]).First());
 
             // Act
             var result = billService.FindBillById(expectedId);
 
             Assert.AreEqual(expectedId, result.Id);
-            contextMock.Verify(b => b.Bills.Find(expectedId), Times.Once);
+            contextMock.Verify(b => b.DbSet.Find(expectedId), Times.Once);
 
         }
 

@@ -12,17 +12,17 @@ using System.Threading.Tasks;
 namespace Cellar.Tests.CompanyService
 {
     [TestFixture]
-    public class GetCompanyByName_Should : MockedBase
+    public class GetCompanyByName_Should : MockedBase<Company>
     {
         [Test]
         public void ReturnSpeficifName_WhenTheNameIsValid()
         {
-            var contextMocked = this.ContextMock;
+            var contextMocked = this.Context;
             var companies = this.Companies;
             var companyName = "Company03";
             var companiesSetMock = QueryableDbSetMock.GetQueryableMockDbSetFromArray(companies);
 
-            contextMocked.Setup(b => b.Companies).Returns(companiesSetMock.Object);
+            contextMocked.Setup(b => b.DbSet).Returns(companiesSetMock.Object);
 
             var companyService = new Bills.Services.CompanyService(contextMocked.Object);
 

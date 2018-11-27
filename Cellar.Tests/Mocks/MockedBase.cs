@@ -1,6 +1,7 @@
 ﻿using Bills.Services;
 using Cellar.Data;
 using Cellar.Data.Models;
+using Cellar.Data.Repositories;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,10 @@ using System.Threading.Tasks;
 
 namespace Cellar.Tests.Mocks
 {
-    public class MockedBase
+    public class MockedBase<T> where T : class
     {
+        internal Mock<IEfRepository<T>> Context => new Mock<IEfRepository<T>>();
+
         internal Mock<IBillsSystemContext> ContextMock => new Mock<IBillsSystemContext>();
 
         internal Mock<ICompanyService> CompanyServiceMocked => new Mock<ICompanyService>();

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Cellar.Data.Repositories
 {
-    public class EfRepository<T> where T : class
+    public class EfRepository<T> : IEfRepository<T> where T : class
     {
         private readonly IBillsSystemContext context;
 

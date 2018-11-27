@@ -13,28 +13,28 @@ using Bills.Services;
 namespace Cellar.Tests.BillService
 {
     [TestFixture]
-    public class GetAllBills_Should : MockedBase
+    public class GetAllBills_Should : MockedBase<Bill>
     {
         [Test]
         public void ReturnAllBills()
         {
             // Arrange
-            var contextMock = this.ContextMock;
+            var contextMock = this.Context;
             var companyServiceMock = this.CompanyServiceMocked;
 
             var bills = this.Bills;
 
             var billSetMock = QueryableDbSetMock.GetQueryableMockDbSet(bills);
 
-            contextMock.Setup(b => b.Bills).Returns(billSetMock.Object);
+            contextMock.Setup(b => b.DbSet).Returns(billSetMock.Object);
 
-            Bills.Services.BillService billService = new Bills.Services.BillService(contextMock.Object, companyServiceMock.Object);
+            Bills.Services.BillService billService = new Bills.Services.BillService(companyServiceMock.Object, contextMock.Object);
 
             // Act
             var result = billService.GetAllBills();
 
             // Assert
-            contextMock.Verify(b => b.Bills, Times.Once);
+            contextMock.Verify(b => b.DbSet, Times.Once);
             CollectionAssert.AreEquivalent(result, bills);
         }
     }

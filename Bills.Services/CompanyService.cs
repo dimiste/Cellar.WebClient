@@ -13,40 +13,31 @@ namespace Bills.Services
 {
     public class CompanyService : ICompanyService
     {
-        private readonly IBillsSystemContext billsSystemContext;
-        private readonly EfRepository<Company> context;
+        private readonly IEfRepository<Company> context;
 
-        public CompanyService(IBillsSystemContext billsSystemContext, EfRepository<Company> context)
+        public CompanyService(IEfRepository<Company> context)
         {
-            this.billsSystemContext = billsSystemContext;
             this.context = context;
         }
 
         public Company GetCompanyByName(string companyName)
         {
             return this.context.All.FirstOrDefault(c => c.Name == companyName);
-
-            return this.billsSystemContext.Companies.FirstOrDefault(c => c.Name == companyName);
         }
 
         public IEnumerable<string> GetAllNamesCompany()
         {
             return this.context.All.ToList().Select(c => c.Name);
-
-            return this.billsSystemContext.Companies.ToList().Select(c => c.Name);
         }
 
         public IQueryable<Company> GetAllCompanies()
         {
             return this.context.All;
-
-            return billsSystemContext.Companies;
         }
 
         public Company FindCompanyById(int id)
         {
             var company = this.context.DbSet.Find(id);
-            //var company = billsSystemContext.Companies.Find(id);
 
             return company;
         }
@@ -54,16 +45,11 @@ namespace Bills.Services
         public void RemoveCompany(Company company)
         {
             this.context.Delete(company);
-
-            //billsSystemContext.Companies.Remove(company);
         }
 
         public IQueryable<Company> GetCompanyByIdUser(string idUser)
         {
-            return this.context.DbSet.Where(c => c.IdUser == idUser);
-
-            return this.billsSystemContext
-                .Companies
+            return this.context.DbSet
                 .Where(c => c.IdUser == idUser);
         }
 
@@ -76,9 +62,6 @@ namespace Bills.Services
 
             this.context.Add(company);
             this.context.SaveChanges();
-
-            //this.billsSystemContext.Companies.Add(company);
-            //this.billsSystemContext.SaveChanges();
         }
 
         public void UpdateByIdCompany(Page page, int idToUpdateItem)
@@ -99,7 +82,6 @@ namespace Bills.Services
             {
                 // Guarde los cambios aquí, por ejemplo MyDataLayer.SaveChanges();
                 this.context.SaveChanges();
-                //this.billsSystemContext.SaveChanges();
             }
         }
     }

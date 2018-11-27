@@ -18,46 +18,32 @@ namespace Bills.Services
 {
     public class BillService : IBillService
     {
-        private readonly IBillsSystemContext billsSystemContext;
         private readonly ICompanyService companyService;
-        private readonly EfRepository<Bill> context;
+        private readonly IEfRepository<Bill> context;
 
-        public BillService(IBillsSystemContext billsSystemContext, ICompanyService companyService, EfRepository<Bill> context)
+        public BillService(ICompanyService companyService, IEfRepository<Bill> context)
         {
-            this.billsSystemContext = billsSystemContext;
             this.companyService = companyService;
             this.context = context;
         }
 
         public IQueryable<Bill> GetBillsByIdUser(string idUser)
         {
-            //var bills = billsSystemContext.Bills.Where(b => b.IdUser == idUser).Include(b => b.Company);
-
-            //return bills;
-
             return this.context.DbSet.Where(b => b.IdUser == idUser).Include(b => b.Company);
         }
 
         public Bill FindBillById(int id)
         {
-            //var bill = billsSystemContext.Bills.Find(id);
-
-            //return bill;
-
             return this.context.DbSet.Find(id);
         }
 
         public void RemoveBill(Bill bill)
         {
-            //billsSystemContext.Bills.Remove(bill);
-
             this.context.DbSet.Remove(bill);
         }
 
         public IList<Bill> GetAllBills()
         {
-            //return billsSystemContext.Bills.ToList();
-
             return this.context.DbSet.ToList();
         }
 
@@ -78,9 +64,7 @@ namespace Bills.Services
 
         public IEnumerable<string> DistinctsMounths(IQueryable<Bill> bills)
         {
-            //return bills.ToList().Select(b => b.Month).Distinct();
-
-            return this.context.DbSet.ToList().Select(b => b.Month).Distinct();
+            return bills.ToList().Select(b => b.Month).Distinct();
         }
         
         public void DeleteBillByCheckedBox(ListView listView)
@@ -191,9 +175,6 @@ namespace Bills.Services
 
             var dateBase = (HtmlInputGenericControl)control.FindControl("date");
             bill.Date = DateTime.Parse(dateBase.Value);
-
-            //this.billsSystemContext.Bills.Add(bill);
-            //this.billsSystemContext.SaveChanges();
 
             this.context.Add(bill);
             this.context.SaveChanges();

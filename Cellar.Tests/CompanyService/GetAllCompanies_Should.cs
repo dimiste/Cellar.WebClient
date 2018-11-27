@@ -14,13 +14,13 @@ using System.Threading.Tasks;
 namespace Cellar.Tests.CompanyService
 {
     [TestFixture]
-    public class GetAllCompanies_Should : MockedBase
+    public class GetAllCompanies_Should : MockedBase<Company>
     {
         [Test]
         public void ReturnAllCompanies() 
         {
             // Arragne
-            var contextMock = this.ContextMock;
+            var contextMock = this.Context;
 
             var companies = this.Companies;
 
@@ -30,7 +30,7 @@ namespace Cellar.Tests.CompanyService
             companySetMock.As<IQueryable<Company>>().Setup(m => m.ElementType).Returns(companies.AsQueryable().ElementType);
             companySetMock.As<IQueryable<Company>>().Setup(m => m.GetEnumerator()).Returns(companies.AsQueryable().GetEnumerator());
 
-            contextMock.Setup(c => c.Companies).Returns(companySetMock.Object);
+            contextMock.Setup(c => c.DbSet).Returns(companySetMock.Object);
 
             ICompanyService companyService = new Bills.Services.CompanyService(contextMock.Object);
 
@@ -38,7 +38,7 @@ namespace Cellar.Tests.CompanyService
             var result = companyService.GetAllCompanies();
 
             // Assert
-            contextMock.Verify(c => c.Companies, Times.Once);
+            contextMock.Verify(c => c.DbSet, Times.Once);
             CollectionAssert.AreEquivalent(companies, result.ToList());
         }
     }

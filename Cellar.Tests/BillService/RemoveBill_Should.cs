@@ -14,13 +14,13 @@ using System.Threading.Tasks;
 namespace Cellar.Tests.BillService
 {
     [TestFixture]
-    public class RemoveBill_Should : MockedBase
+    public class RemoveBill_Should : MockedBase<Bill>
     {
         [Test]
         public void RemoveSpecificBill_WhenBillExist()
         {
             // Arrange
-            var contextMock = this.ContextMock;
+            var contextMock = this.Context;
             var companyServiceMock = this.CompanyServiceMocked;
 
             var expectedId = 2;
@@ -28,12 +28,12 @@ namespace Cellar.Tests.BillService
 
             var billSetMock = QueryableDbSetMock.GetQueryableMockDbSetFromArray(bills);
 
-            contextMock.Setup(c => c.Bills).Returns(billSetMock.Object);
+            contextMock.Setup(c => c.DbSet).Returns(billSetMock.Object);
 
             billSetMock.Setup(b => b.Remove(It.IsAny<Bill>())).Callback<Bill>((entity) => bills.Remove(entity));
             //contextMock.Setup(c => c.Bills.Remove(It.IsAny<Bill>())).Callback<Bill>((entity) => bills.Remove(entity));
 
-            Bills.Services.BillService billService = new Bills.Services.BillService(contextMock.Object, companyServiceMock.Object);
+            Bills.Services.BillService billService = new Bills.Services.BillService(companyServiceMock.Object, contextMock.Object);
 
             Bill bill = billSetMock.Object.First();
 

@@ -19,5 +19,10 @@ namespace Cellar.Data
         public IDbSet<Company> Companies { get; set; }
 
         public IDbSet<Bill> Bills { get; set; }
+
+        public new IDbSet<T> Set<T>() where T : class
+        {
+            return base.Set<T>();
+        }
     }
 }

@@ -16,5 +16,7 @@ namespace Cellar.Data
         IDbSet<Bill> Bills { get; set; }
 
         DbEntityEntry Entry(object entity);
+
+        IDbSet<T> Set<T>() where T : class;
     }
 }

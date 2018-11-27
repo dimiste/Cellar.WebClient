@@ -1,5 +1,6 @@
 ﻿using Cellar.Data;
 using Cellar.Data.Models;
+using Cellar.Data.Repositories;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -19,35 +20,45 @@ namespace Bills.Services
     {
         private readonly IBillsSystemContext billsSystemContext;
         private readonly ICompanyService companyService;
+        private readonly EfRepository<Bill> context;
 
-        public BillService(IBillsSystemContext billsSystemContext, ICompanyService companyService)
+        public BillService(IBillsSystemContext billsSystemContext, ICompanyService companyService, EfRepository<Bill> context)
         {
             this.billsSystemContext = billsSystemContext;
             this.companyService = companyService;
+            this.context = context;
         }
 
         public IQueryable<Bill> GetBillsByIdUser(string idUser)
         {
-            var bills = billsSystemContext.Bills.Where(b => b.IdUser == idUser).Include(b => b.Company);
+            //var bills = billsSystemContext.Bills.Where(b => b.IdUser == idUser).Include(b => b.Company);
 
-            return bills;
+            //return bills;
+
+            return this.context.DbSet.Where(b => b.IdUser == idUser).Include(b => b.Company);
         }
 
         public Bill FindBillById(int id)
         {
-            var bill = billsSystemContext.Bills.Find(id);
+            //var bill = billsSystemContext.Bills.Find(id);
 
-            return bill;
+            //return bill;
+
+            return this.context.DbSet.Find(id);
         }
 
         public void RemoveBill(Bill bill)
         {
-            billsSystemContext.Bills.Remove(bill);
+            //billsSystemContext.Bills.Remove(bill);
+
+            this.context.DbSet.Remove(bill);
         }
 
         public IList<Bill> GetAllBills()
         {
-            return billsSystemContext.Bills.ToList();
+            //return billsSystemContext.Bills.ToList();
+
+            return this.context.DbSet.ToList();
         }
 
         public int GetLastOrDefaultIdBill()
@@ -67,7 +78,9 @@ namespace Bills.Services
 
         public IEnumerable<string> DistinctsMounths(IQueryable<Bill> bills)
         {
-            return bills.ToList().Select(b => b.Month).Distinct();
+            //return bills.ToList().Select(b => b.Month).Distinct();
+
+            return this.context.DbSet.ToList().Select(b => b.Month).Distinct();
         }
         
         public void DeleteBillByCheckedBox(ListView listView)
@@ -91,7 +104,9 @@ namespace Bills.Services
                 }
             }
 
-            this.billsSystemContext.SaveChanges();
+            //this.billsSystemContext.SaveChanges();
+
+            this.context.SaveChanges();
         }
 
         public void CreateBillFromForm(HttpContext context, Control control)
@@ -177,8 +192,11 @@ namespace Bills.Services
             var dateBase = (HtmlInputGenericControl)control.FindControl("date");
             bill.Date = DateTime.Parse(dateBase.Value);
 
-            this.billsSystemContext.Bills.Add(bill);
-            this.billsSystemContext.SaveChanges();
+            //this.billsSystemContext.Bills.Add(bill);
+            //this.billsSystemContext.SaveChanges();
+
+            this.context.Add(bill);
+            this.context.SaveChanges();
         }
     }
 }

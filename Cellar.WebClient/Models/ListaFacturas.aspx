@@ -16,7 +16,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>--%>
     <%--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>--%>
-
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -67,13 +66,11 @@
                                 </tr>
                             </thead>--%>
 
-                            <asp:ListView ID="ListView1" runat="server" DataKeyNames="Id" 
+                            <asp:ListView ID="ListView1" runat="server" DataKeyNames="Id"
                                 SelectMethod="ListView1_GetData"
-                                
                                 ItemType="Cellar.Data.Models.Bill">
                                 <EditItemTemplate>
 
-                                    
                                 </EditItemTemplate>
                                 <EmptyDataTemplate>
                                     <tr>
@@ -87,10 +84,9 @@
                                     <tbody id="myTable">
                                         <tr>
                                             <td>
-                                                <%--<asp:Button ID="DeleteButton" runat="server" CommandName="Delete" Text="Eliminar" class="btn btn-primary" />
-                        <asp:Button ID="EditButton" runat="server" CommandName="Edit" Text="Editar" class="btn btn-primary" />--%>
                                                 <asp:CheckBox runat="server" ID="CheckBox" />
                                             </td>
+
                                             <td>
                                                 <asp:Label ID="FechaCompra" runat="server" Text="<%# Item.Date.ToShortDateString() %>"></asp:Label>
                                             </td>
@@ -107,6 +103,7 @@
                                             <td>
                                                 <asp:Label ID="Id" runat="server" Text='<%# Item.Id %> ' Visible="false" />
                                             </td>
+
                                         </tr>
                                     </tbody>
                                 </ItemTemplate>
@@ -114,6 +111,7 @@
                                     <tr runat="server" class="success">
                                         <td runat="server" style="width: 200px">
                                             <asp:Button ID="DeleteButton" runat="server" OnClick="ButonEliminar_Click" Text="Eliminar" class="btn btn-primary" />
+                                            <asp:Button ID="EditarButton" runat="server" OnClick="ButonEditar_Click" Text="Editar" class="btn btn-primary" />
                                         </td>
                                         <td>Fecha de compra</td>
                                         <td>Empresa</td>

@@ -15,6 +15,7 @@ namespace Cellar.WebClient
 
         public event EventHandler<GetContextEventArgs> OnListView1_GetData;
         public event EventHandler OnButonEliminar_Click;
+        public event EventHandler OnButonEditar_Click;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -45,6 +46,12 @@ namespace Cellar.WebClient
             this.OnButonEliminar_Click?.Invoke(this, null);
 
             this.Context.Response.Redirect("ListaFacturas.aspx");
+        }
+
+        protected void ButonEditar_Click(object sender, EventArgs e)
+        {
+
+            this.OnButonEditar_Click?.Invoke(this, null);
         }
 
     }

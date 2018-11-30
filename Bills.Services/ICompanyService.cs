@@ -7,15 +7,11 @@ namespace Bills.Services
 {
     public interface ICompanyService
     {
-        IEnumerable<string> GetAllNamesCompany();
-
         Company GetCompanyByName(string companyName);
 
         IQueryable<Company> GetAllCompanies();
 
         Company FindCompanyById(int id);
-
-        void RemoveCompany(Company company);
 
         IQueryable<Company> GetCompanyByIdUser(string idUser);
 

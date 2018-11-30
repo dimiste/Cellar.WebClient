@@ -25,11 +25,6 @@ namespace Bills.Services
             return this.context.All.FirstOrDefault(c => c.Name == companyName);
         }
 
-        public IEnumerable<string> GetAllNamesCompany()
-        {
-            return this.context.All.ToList().Select(c => c.Name);
-        }
-
         public IQueryable<Company> GetAllCompanies()
         {
             return this.context.All;
@@ -40,11 +35,6 @@ namespace Bills.Services
             var company = this.context.DbSet.Find(id);
 
             return company;
-        }
-
-        public void RemoveCompany(Company company)
-        {
-            this.context.Delete(company);
         }
 
         public IQueryable<Company> GetCompanyByIdUser(string idUser)

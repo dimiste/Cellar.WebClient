@@ -99,7 +99,8 @@
             </div>
         </div>
 
-        <asp:Button runat="server" OnClick="ValidateBtn_OnClick" class="btn btn-primary" Text="Enviar" />
+        <asp:Button runat="server" OnClick="ValidateBtn_OnClick" class="btn btn-primary" Text="Guardar" />
+        <asp:Button runat="server" OnClick="CancelarBtn_OnClick" class="btn btn-primary" Text="Cancelar" />
     </div>
     <!-- end row-->
 
@@ -128,5 +129,6 @@
 
     <!-- bundle -->
     <script src="https://coderthemes.com/hyper/assets/js/app.min.js"></script>
+
 
 </asp:Content>

@@ -22,7 +22,7 @@ namespace Cellar.Tests.CompanyService
             var companyName = "Company03";
             var companiesSetMock = QueryableDbSetMock.GetQueryableMockDbSetFromArray(companies);
 
-            contextMocked.Setup(b => b.DbSet).Returns(companiesSetMock.Object);
+            contextMocked.Setup(b => b.All).Returns(companiesSetMock.Object);
 
             var companyService = new Bills.Services.CompanyService(contextMocked.Object);
 

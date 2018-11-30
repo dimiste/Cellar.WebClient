@@ -21,8 +21,10 @@ namespace Bills.Services
 
         IList<SumBills> CalculatorMounths(ISumBillsService sumBillsService, string idUser);
 
-        void DeleteBillByCheckedBox(ListView listView);
+        IList<Bill> FindBillsByCheckedBox(ListView listView);
 
         void CreateBillFromForm(HttpContext context, Control control);
+
+        void SaveChanges();
     }   
 }

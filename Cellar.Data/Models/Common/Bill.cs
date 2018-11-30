@@ -38,7 +38,7 @@ namespace Cellar.Data.Models
         public double TotalBill {
 
             get {
-                return this.Exento + this.Base4 + this.Base10 + this.Base21 + this.IVA4 + this.IVA10 + this.IVA21;
+                return Math.Round((this.Exento + this.Base4 + this.Base10 + this.Base21 + this.IVA4 + this.IVA10 + this.IVA21), 2);
             }
         }
 

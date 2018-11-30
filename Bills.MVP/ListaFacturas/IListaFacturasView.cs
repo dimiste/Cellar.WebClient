@@ -8,5 +8,6 @@ namespace Bills.MVP.ListaFacturas
     {
         event EventHandler<GetContextEventArgs> OnListView1_GetData;
         event EventHandler OnButonEliminar_Click;
+        event EventHandler OnButonEditar_Click;
     }
 }

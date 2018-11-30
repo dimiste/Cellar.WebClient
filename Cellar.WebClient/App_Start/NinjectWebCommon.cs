@@ -8,6 +8,8 @@ namespace Cellar.WebClient.App_Start
     using System.Web;
     using Bills.Services;
     using Cellar.Data;
+    using Cellar.Data.Models;
+    using Cellar.Data.Repositories;
     using Cellar.WebClient.NinjectBindingsModules;
     using Cellar.WebClient.PresenterFactories;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
@@ -76,12 +78,12 @@ namespace Cellar.WebClient.App_Start
 
             PresenterBinder.Factory = kernel.Get<IPresenterFactory>();
 
-            kernel.Bind(typeof(IBillsSystemContext), typeof(IBillsSystemBaseContext))
-                .To<BillsSystemContext>().InRequestScope();
+            kernel.Bind(typeof(IBillsSystemContext), typeof(IBillsSystemBaseContext)).To<BillsSystemContext>().InRequestScope();
+            kernel.Bind(typeof(IEfRepository<>)).To(typeof(EfRepository<>)).InRequestScope();
 
-            kernel.Bind<IBillService>().To<BillService>();
-            kernel.Bind<ICompanyService>().To<CompanyService>();
-            kernel.Bind<ISumBillsService>().To<SumBillsService>();
+            kernel.Bind(typeof(IBillService)).To(typeof(BillService)).InSingletonScope();
+            kernel.Bind(typeof(ICompanyService)).To(typeof(CompanyService)).InSingletonScope();
+            kernel.Bind(typeof(ISumBillsService)).To(typeof(SumBillsService)).InSingletonScope();
         }
     }
 }

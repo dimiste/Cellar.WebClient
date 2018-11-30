@@ -62,14 +62,15 @@ namespace Bills.Services
             return sumBillsTotals;
         }
 
-        public IEnumerable<string> DistinctsMounths(IQueryable<Bill> bills)
+        private IEnumerable<string> DistinctsMounths(IQueryable<Bill> bills)
         {
             return bills.ToList().Select(b => b.Month).Distinct();
         }
         
-        public void DeleteBillByCheckedBox(ListView listView)
+        public IList<Bill> FindBillsByCheckedBox(ListView listView)
         {
             var listViewItems = listView.Items;
+            IList<Bill> findedsBills = new List<Bill>();
 
             foreach (var item in listViewItems)
             {
@@ -77,19 +78,20 @@ namespace Bills.Services
 
                 if (chkUser != null & chkUser.Checked)
                 {
-                    //int.TryParse(item.FindControl("Id").ToString(), out int idChecked);
                     Label idChecked = (Label)item.FindControl("Id");
                     var id = int.Parse(idChecked.Text);
 
                     var bill = this.FindBillById(id);
-
-                    this.RemoveBill(bill);
+                    findedsBills.Add(bill);
                     
                 }
             }
 
-            //this.billsSystemContext.SaveChanges();
+            return findedsBills;
+        }
 
+        public void SaveChanges()
+        {
             this.context.SaveChanges();
         }
 
@@ -97,7 +99,23 @@ namespace Bills.Services
         {
             int lastIdBill = 0;
 
-            Bill bill = new Bill();
+            var id = context.Request.QueryString["Id"];
+
+            Bill bill = null;
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                //this.UpdateByIdBill(page, int.Parse(id));
+                //return;
+
+                bill = this.FindBillById(int.Parse(id));
+            }
+            else
+            {
+                bill = new Bill();
+            }
+
+            
             var month = (HtmlSelect)control.FindControl("month");
             var year = DateTime.Now.Year.ToString();
             bill.Month = year + month.Value;
@@ -168,7 +186,15 @@ namespace Bills.Services
             }
             else
             {
-                bill.BillScanned = "../img/FacturaNoEscaneada.pdf";
+                if (!string.IsNullOrEmpty(context.Request.QueryString["BillScanned"]))
+                {
+                    bill.BillScanned = context.Request.QueryString["BillScanned"];
+                }
+                else
+                {
+                    bill.BillScanned = "../img/FacturaNoEscaneada.pdf";
+                }
+                
             }
 
 
@@ -176,7 +202,12 @@ namespace Bills.Services
             var dateBase = (HtmlInputGenericControl)control.FindControl("date");
             bill.Date = DateTime.Parse(dateBase.Value);
 
-            this.context.Add(bill);
+            if (string.IsNullOrEmpty(id))
+            {
+                this.context.Add(bill);
+            }
+
+            
             this.context.SaveChanges();
         }
     }

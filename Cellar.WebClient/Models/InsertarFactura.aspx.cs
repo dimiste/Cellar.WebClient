@@ -1,6 +1,9 @@
-﻿using Bills.MVP.InsertarEmpresa;
+﻿using Bills.MVP.CustomEventArgs;
+using Bills.MVP.InsertarEmpresa;
+using Bills.MVP.InsertarFactura;
 using Bills.MVP.ListaFacturas;
 using Cellar.Data.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Web.UI;
 
@@ -10,16 +13,33 @@ using WebFormsMvp.Web;
 namespace Cellar.WebClient
 {
     [PresenterBinding(typeof(InsertarFacturaPresenter))]
-    public partial class InsertarFactura : MvpPage<ListaFacturasViewModel>, IInsertarFacturaView
+    public partial class InsertarFactura : MvpPage<InsertarFacturaViewModel>, IInsertarFacturaView
     {
 
         public event EventHandler<GetContextEventArgs> OnSubmitProcess;
         public event EventHandler<GetContextEventArgs> OnServerValidation;
+        public event EventHandler OnFixMonth;
+
+        //public event EventHandler<GetIdBillEventArgs> OnEditBill;
+
+        // TODO
+        //public bool IsMineBill(int idBill)
+        //{
+        //    this.OnEditBill?.Invoke(this, new GetIdBillEventArgs(idBill));
+        //    return this.Model.IsBillMine;
+        //}
+
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             if (!Page.IsPostBack)
             {
+                this.OnFixMonth?.Invoke(this, null);
+
+                this.month.SelectedIndex = this.Model.PositionMonth;
 
                 if (!string.IsNullOrEmpty(this.Context.Request.QueryString["Id"]))
                 {

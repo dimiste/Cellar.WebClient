@@ -15,6 +15,7 @@ using Microsoft.AspNet.Identity;
 
 using WebFormsMvp.Web;
 using System.Web;
+using Bills.MVP.CustomEventArgs;
 
 namespace Bills.MVP.InsertarEmpresa
 {
@@ -25,9 +26,33 @@ namespace Bills.MVP.InsertarEmpresa
         {
             this.View.OnSubmitProcess += View_OnSubmitProcess;
             this.View.OnServerValidation += View_OnServerValidation;
+            this.View.OnFixMonth += View_OnFixMonth;
 
         }
 
+        private void View_OnFixMonth(object sender, EventArgs e)
+        {
+            var sen = sender as MvpPage;
+            var myBills = this.billService.GetBillsByIdUser(sen.User.Identity.GetUserId());
+
+            if (myBills != null)
+            {
+                this.View.Model.PositionMonth = int.Parse(myBills.ToList().Last().Month.Substring(5));
+            }
+            else
+            {
+                this.View.Model.PositionMonth = 0;
+            }
+        }
+
+        // TODO
+        //private void View_OnEditBill(object sender, GetIdBillEventArgs e)
+        //{
+        //    var sen = sender as MvpPage;
+        //    var idUser = sen.User.Identity.GetUserId();
+        //    var isMyBills = this.billService.GetBillsByIdUser(idUser).Any(b => b.Id == e.IdBill);
+        //    this.View.Model.IsBillMine = isMyBills;
+        //}
 
         private void View_OnServerValidation(object sender, GetContextEventArgs e)
         {

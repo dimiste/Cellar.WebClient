@@ -39,9 +39,6 @@
     </div>
     <!-- end page title -->
 
-
-
-
     <!-- start row-->
     <div class="row table-responsive">
         <div class="col-12">
@@ -67,7 +64,7 @@
                             </thead>--%>
 
                             <asp:ListView ID="ListView1" runat="server" DataKeyNames="Id"
-                                SelectMethod="ListView1_GetData"
+                                SelectMethod="ListView1_GetData" OnDataBound="ListView1_DataBound"
                                 ItemType="Cellar.Data.Models.Bill">
                                 <EditItemTemplate>
 
@@ -86,15 +83,17 @@
                                             <td>
                                                 <asp:CheckBox runat="server" ID="CheckBox" />
                                             </td>
-
+                                            <td>
+                                                <asp:Label ID="Month" runat="server" Text="<%# Item.Month %>"></asp:Label>
+                                            </td>
                                             <td>
                                                 <asp:Label ID="FechaCompra" runat="server" Text="<%# Item.Date.ToShortDateString() %>"></asp:Label>
                                             </td>
                                             <td>
-                                                <asp:Label ID="NameLabel" runat="server" Text='<%# Item.Company.Name %>' />
+                                                <asp:Label ID="NameLabel" runat="server" Text='<%# Item.Company.Name %>'/>
                                             </td>
                                             <td>
-                                                <a href="<%# Eval("BillScanned") %>">Ver factura</a>
+                                                <asp:HyperLink ClientIDMode="AutoID" runat="server" ID="VerFactura" NavigateUrl="<%# Item.BillScanned %>" >Ver Factura</asp:HyperLink>
                                             </td>
 
                                             <td>
@@ -113,6 +112,7 @@
                                             <asp:Button ID="DeleteButton" runat="server" OnClick="ButonEliminar_Click" Text="Eliminar" class="btn btn-primary" />
                                             <asp:Button ID="EditarButton" runat="server" OnClick="ButonEditar_Click" Text="Editar" class="btn btn-primary" />
                                         </td>
+                                        <td>Mes de Facturación</td>
                                         <td>Fecha de compra</td>
                                         <td>Empresa</td>
                                         <td>Factura</td>

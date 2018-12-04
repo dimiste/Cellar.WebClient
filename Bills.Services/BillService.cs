@@ -1,5 +1,4 @@
-﻿using Cellar.Data;
-using Cellar.Data.Models;
+﻿using Cellar.Data.Models;
 using Cellar.Data.Repositories;
 using Microsoft.AspNet.Identity;
 using System;
@@ -7,8 +6,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
@@ -29,7 +26,9 @@ namespace Bills.Services
 
         public IQueryable<Bill> GetBillsByIdUser(string idUser)
         {
-            return this.context.DbSet.Where(b => b.IdUser == idUser).Include(b => b.Company);
+            var bills = this.context.DbSet.Where(b => b.IdUser == idUser).Include(b => b.Company).ToArray();
+
+            return bills.AsQueryable();
         }
 
         public Bill FindBillById(int id)
@@ -66,7 +65,7 @@ namespace Bills.Services
         {
             return bills.ToList().Select(b => b.Month).Distinct();
         }
-        
+
         public IList<Bill> FindBillsByCheckedBox(ListView listView)
         {
             var listViewItems = listView.Items;
@@ -83,7 +82,7 @@ namespace Bills.Services
 
                     var bill = this.FindBillById(id);
                     findedsBills.Add(bill);
-                    
+
                 }
             }
 
@@ -100,14 +99,12 @@ namespace Bills.Services
             int lastIdBill = 0;
 
             var id = context.Request.QueryString["Id"];
+            var myBills = this.GetBillsByIdUser(context.User.Identity.GetUserId());
 
             Bill bill = null;
 
-            if (!string.IsNullOrEmpty(id))
+            if (!string.IsNullOrEmpty(id) && myBills != null)
             {
-                //this.UpdateByIdBill(page, int.Parse(id));
-                //return;
-
                 bill = this.FindBillById(int.Parse(id));
             }
             else
@@ -115,7 +112,7 @@ namespace Bills.Services
                 bill = new Bill();
             }
 
-            
+
             var month = (HtmlSelect)control.FindControl("month");
             var year = DateTime.Now.Year.ToString();
             bill.Month = year + month.Value;
@@ -180,7 +177,16 @@ namespace Bills.Services
             // también se podría haber subido el archivo con el controlador "FileUpload" de asp.net. Para verificar si existe archvo sería: "FileUpload.HasFile"
             if (billScannedPostedFile.ContentLength > 0)
             {
-                string path = "../img/" + (lastIdBill + 1).ToString() + Path.GetExtension(billScannedPostedFile.FileName);
+                string path = string.Empty;
+                if (!string.IsNullOrEmpty(context.Request.QueryString["Id"]))
+                {
+                    path = "../img/" + context.Request.QueryString["Id"] + Path.GetExtension(billScannedPostedFile.FileName);
+                }
+                else
+                {
+                    path = "../img/" + (lastIdBill + 1).ToString() + Path.GetExtension(billScannedPostedFile.FileName);
+                }
+
                 billScannedPostedFile.SaveAs(context.Server.MapPath(path));
                 bill.BillScanned = path;
             }
@@ -194,7 +200,7 @@ namespace Bills.Services
                 {
                     bill.BillScanned = "../img/FacturaNoEscaneada.pdf";
                 }
-                
+
             }
 
 
@@ -207,7 +213,7 @@ namespace Bills.Services
                 this.context.Add(bill);
             }
 
-            
+
             this.context.SaveChanges();
         }
     }

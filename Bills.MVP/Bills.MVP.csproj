@@ -72,11 +72,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commun\PresenterCommun.cs" />
+    <Compile Include="CustomEventArgs\GetIdBillEventArgs.cs" />
     <Compile Include="CustomEventArgs\GetIdToUpdateItemEventArgs.cs" />
     <Compile Include="InsertarEmpresa\InsertarEmpresaPresenter.cs" />
     <Compile Include="InsertarEmpresa\IInsertarEmpresaView.cs" />
     <Compile Include="InsertarFactura\IInsertarFacturaView.cs" />
     <Compile Include="InsertarFactura\InsertarFacturaPresenter.cs" />
+    <Compile Include="InsertarFactura\InsertarFacturaViewModel.cs" />
     <Compile Include="ListaEmpresas\IListaEmpresasView.cs" />
     <Compile Include="ListaEmpresas\ListaEmpresasPresenter.cs" />
     <Compile Include="ListaEmpresas\ListaEmpresasViewModel.cs" />

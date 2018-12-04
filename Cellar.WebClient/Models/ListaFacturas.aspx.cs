@@ -3,7 +3,8 @@ using Cellar.Data.Models;
 
 using System;
 using System.Linq;
-
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebFormsMvp;
 using WebFormsMvp.Web;
 
@@ -16,10 +17,10 @@ namespace Cellar.WebClient
         public event EventHandler<GetContextEventArgs> OnListView1_GetData;
         public event EventHandler OnButonEliminar_Click;
         public event EventHandler OnButonEditar_Click;
+        public event EventHandler<GetContextEventArgs> OnListView1_DataBound;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
 
@@ -32,7 +33,6 @@ namespace Cellar.WebClient
 
         public IQueryable<Bill> ListView1_GetData()
         {
-
             this.OnListView1_GetData?.Invoke(this, new GetContextEventArgs(this.Context));
 
             var bills = this.Model.Bills;
@@ -42,7 +42,6 @@ namespace Cellar.WebClient
 
         protected void ButonEliminar_Click(object sender, EventArgs e)
         {
-
             this.OnButonEliminar_Click?.Invoke(this, null);
 
             this.Context.Response.Redirect("ListaFacturas.aspx");
@@ -50,9 +49,12 @@ namespace Cellar.WebClient
 
         protected void ButonEditar_Click(object sender, EventArgs e)
         {
-
             this.OnButonEditar_Click?.Invoke(this, null);
         }
 
+        protected void ListView1_DataBound(object sender, EventArgs e)
+        {
+            this.OnListView1_DataBound?.Invoke(this, new GetContextEventArgs(this.Context));
+        }
     }
 }

@@ -36,13 +36,13 @@ namespace Cellar.Tests.BillService
             Bills.Services.BillService billService = new Bills.Services.BillService(companyServiceMock.Object, contextMock.Object);
 
             // Act
-            //var result = billService.GetBillsByIdUser(idUser);
+            var result = billService.GetBillsByIdUser(idUser);
 
-            //// Assert
-            //contextMock.Verify(b => b.DbSet, Times.Once);
-            //CollectionAssert.IsNotEmpty(expectedResult);
-            //CollectionAssert.IsNotEmpty(result);
-            //CollectionAssert.AreEquivalent(expectedResult, result);
+            // Assert
+            contextMock.Verify(b => b.DbSet, Times.Once);
+            CollectionAssert.IsNotEmpty(expectedResult);
+            CollectionAssert.IsNotEmpty(result);
+            CollectionAssert.AreEquivalent(expectedResult, result);
         }
 
         [Test]
@@ -65,13 +65,13 @@ namespace Cellar.Tests.BillService
             Bills.Services.BillService billService = new Bills.Services.BillService(companyServiceMock.Object, contextMock.Object);
 
             // Act
-            //var result = billService.GetBillsByIdUser(idUser);
+            var result = billService.GetBillsByIdUser(idUser);
 
-            //// Assert
-            //contextMock.Verify(b => b.DbSet, Times.Once);
-            //CollectionAssert.IsNotEmpty(expectedResult);
-            //CollectionAssert.IsEmpty(result);
-            //CollectionAssert.AreNotEquivalent(expectedResult, result);
+            // Assert
+            contextMock.Verify(b => b.DbSet, Times.Once);
+            CollectionAssert.IsNotEmpty(expectedResult);
+            CollectionAssert.IsEmpty(result);
+            CollectionAssert.AreNotEquivalent(expectedResult, result);
 
         }
 
@@ -92,11 +92,11 @@ namespace Cellar.Tests.BillService
             Bills.Services.BillService billService = new Bills.Services.BillService(companyServiceMock.Object, contextMock.Object);
 
             // Act
-            //var result = billService.GetBillsByIdUser(idUser);
+            var result = billService.GetBillsByIdUser(idUser);
 
-            //// Assert
-            //contextMock.Verify(b => b.DbSet, Times.Once);
-            //Assert.IsEmpty(result);
+            // Assert
+            contextMock.Verify(b => b.DbSet, Times.Once);
+            Assert.IsEmpty(result);
         }
     }
 }
